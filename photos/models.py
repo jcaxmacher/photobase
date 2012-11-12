@@ -12,11 +12,12 @@ class Photo(models.Model):
 class Collection(models.Model):
     name = models.CharField(max_length=255, blank=True, db_index=True)
     description = models.TextField(blank=True)
-    cover_image = models.ForeignKey('Photo')
+    cover_image = models.ForeignKey('Photo', related_name='cover_image')
     cover_image_width = models.IntegerField()
     cover_image_height = models.IntegerField()
     member_image_width = models.IntegerField()
     member_image_height = models.IntegerField()
+    photos = models.ManyToManyField(Photo, through='PhotoToCollection')
 
 class PublicCollection(Collection):
     published = models.BooleanField(db_index=True)
