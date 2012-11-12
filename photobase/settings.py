@@ -21,7 +21,7 @@ DATABASES = {
         'NAME': 'photobase',
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': '5432',
     }
 }
@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'south',
 )
 
 LOGGING = {
