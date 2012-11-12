@@ -17,3 +17,7 @@ class Collection(models.Model):
 
 class PublicCollection(Collection):
     published = models.BooleanField()
+
+class PhotoToCollection(models.Model):
+    collection = models.ForeignKey('Collection')
+    photo = models.ForeignKey('Photo')
