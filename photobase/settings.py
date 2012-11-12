@@ -3,7 +3,7 @@ import os
 DB_USER = os.environ['PHOTOBASE_DB_USER']
 DB_PASSWORD = os.environ['PHOTOBASE_DB_PASSWORD']
 HOME = os.path.realpath(os.path.join(
-    os.path.realpath(__file__), '..'))
+    os.path.realpath(__file__), '../..'))
 MEDIA_HOST = 'http://localhost:9898/'
 
 DEBUG = True
