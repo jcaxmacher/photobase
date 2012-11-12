@@ -5,6 +5,9 @@ class Photo(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     image = models.ImageField(max_length=300, upload_to='images/')
+    width = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    original = models.ForeignKey('self', blank=True, null=True)
 
 class Collection(models.Model):
     name = models.CharField(max_length=255, blank=True)
