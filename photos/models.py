@@ -35,6 +35,7 @@ class PublicCollection(Collection):
 class PhotoToCollection(models.Model):
     collection = models.ForeignKey('Collection', db_index=True)
     photo = models.ForeignKey('Photo', db_index=True)
+    order = models.IntegerField(blank=True, null=True, db_index=True)
 
     def __unicode__(self):
         return 'Photo({0}), Collection({1})'.format(
