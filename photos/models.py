@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Photo(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
@@ -14,8 +15,6 @@ class Photo(models.Model):
     def __unicode__(self):
         return unicode(self.image.file)
 
-    def collection_list(self):
-        return ', '.join(c['name'] for c in self.collections.values())
 
 class Collection(models.Model):
     name = models.CharField(max_length=255, blank=True, db_index=True)
