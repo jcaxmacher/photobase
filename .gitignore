@@ -1,3 +1,4 @@
 *.pyc
 *.swp
 dev.db
+media/
