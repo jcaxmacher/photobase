@@ -2,10 +2,30 @@ from photos.models import (Photo, Collection, PublicCollection,
                            PhotoToCollection)
 from django.contrib import admin
 from django.core.urlresolvers import reverse
+from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+
+
+class PhotoForeignKeyRawIdWidget(ForeignKeyRawIdWidget):
+
+    def label_for_value(self, value):
+        key = self.rel.get_related_field().name
+        try:
+            obj = self.rel.to._default_manager.using(self.db).get(**{key: value})
+        except (ValueError, self.rel.to.DoesNotExist):
+            return ''
+        else:
+            return '<img src="%s" width="100px" height="100px" />' % obj.image.url
 
 
 class CollectionPhotosInline(admin.TabularInline):
     model = Collection.photos.through
+    extra = 0
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        if db_field.name == 'photo':
+            db = kwargs.get('using')
+            kwargs['widget'] = PhotoForeignKeyRawIdWidget(db_field.rel, self.admin_site, using=db)
+        return super(CollectionPhotosInline, self).formfield_for_foreignkey(db_field, request, **kwargs)        
 
 
 class PublicCollectionAdmin(admin.ModelAdmin):
