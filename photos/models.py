@@ -11,6 +11,12 @@ class Photo(models.Model):
     collections = models.ManyToManyField('Collection',
         through='PhotoToCollection')
 
+    def __unicode__(self):
+        return unicode(self.image.file)
+
+    def collection_list(self):
+        return ', '.join(c['name'] for c in self.collections.values())
+
 class Collection(models.Model):
     name = models.CharField(max_length=255, blank=True, db_index=True)
     description = models.TextField(blank=True)
@@ -21,12 +27,20 @@ class Collection(models.Model):
     member_image_height = models.IntegerField()
     photos = models.ManyToManyField('Photo', through='PhotoToCollection')
 
+    def __unicode__(self):
+        return self.name
+
 class PublicCollection(Collection):
     published = models.BooleanField(db_index=True)
 
 class PhotoToCollection(models.Model):
     collection = models.ForeignKey('Collection', db_index=True)
     photo = models.ForeignKey('Photo', db_index=True)
+
+    def __unicode__(self):
+        return 'Photo({0}), Collection({1})'.format(
+            self.photo.id, self.collection.id
+        )
 
 # Trick to get the filter_horizonal widget to display for collection
 # selection on the Photo model add page in the django admin
