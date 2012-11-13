@@ -27,3 +27,7 @@ class PublicCollection(Collection):
 class PhotoToCollection(models.Model):
     collection = models.ForeignKey('Collection', db_index=True)
     photo = models.ForeignKey('Photo', db_index=True)
+
+# Trick to get the filter_horizonal widget to display for collection
+# selection on the Photo model add page in the django admin
+PhotoToCollection._meta.auto_created = True
