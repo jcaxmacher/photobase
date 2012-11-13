@@ -15,6 +15,7 @@ class PublicCollectionAdmin(admin.ModelAdmin):
     inlines = [CollectionPhotosInline,]
 
 class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('image', 'collection_list')
     fieldsets = (
         (None, {'fields': ('image', 'collections')}),
         ('Dimensions', {'fields': ('width', 'height')}),
