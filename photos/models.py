@@ -8,6 +8,8 @@ class Photo(models.Model):
     width = models.IntegerField(blank=True, null=True, db_index=True)
     height = models.IntegerField(blank=True, null=True, db_index=True)
     original = models.ForeignKey('self', blank=True, null=True, db_index=True)
+    collections = models.ManyToManyField('Collection',
+        through='PhotoToCollection')
 
 class Collection(models.Model):
     name = models.CharField(max_length=255, blank=True, db_index=True)
@@ -17,7 +19,7 @@ class Collection(models.Model):
     cover_image_height = models.IntegerField()
     member_image_width = models.IntegerField()
     member_image_height = models.IntegerField()
-    photos = models.ManyToManyField(Photo, through='PhotoToCollection')
+    photos = models.ManyToManyField('Photo', through='PhotoToCollection')
 
 class PublicCollection(Collection):
     published = models.BooleanField(db_index=True)
